@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Forecast</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- Link Day.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <header>
@@ -15,7 +21,7 @@
     <aside class="search-bar">
       <form>
         <input type="search" id="city-name" placeholder="Ottawa" />
-        <button>Search</button>
+        <button id="search-bttn">Search</button>
       </form>
       <div>
         <p>St. John's</p>

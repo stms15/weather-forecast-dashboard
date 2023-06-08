@@ -9,10 +9,6 @@ function getGeoCoordinates(cityName, appId) {
     limit +
     "&appid=" +
     appId;
-  var geoLocation = {
-    lat: "",
-    long: "",
-  };
 
   fetch(coordReqUrl, {
     method: "GET",
@@ -21,21 +17,48 @@ function getGeoCoordinates(cityName, appId) {
       return response.json();
     })
     .then(function (data) {
-      geoLocation.lat = data[0].lat;
-      geoLocation.long = data[0].lon;
+      var geoLocation = {
+        lat: data[0].lat,
+        long: data[0].lon,
+      };
+      localStorage.setItem("coordinates", JSON.stringify(geoLocation));
     })
     .catch(function (error) {
       console.log(error);
     });
-
-  return geoLocation;
 }
 
 // ----------------------- //
 
 var ApiKey = "090e889d7a08a33b213911545eb4136f";
-var reqUrl =
-  "https://api.openweathermap.org/data/2.5/forecast?lat=47&lon=58&appid=";
+var searchInputEl = document.getElementById("city-name");
+var searchBttnEl = document.getElementById("search-bttn");
 
-var coordinates = getGeoCoordinates("St. John's", ApiKey);
-console.log(coordinates);
+searchBttnEl.addEventListener("click", function (event) {
+  event.preventDefault();
+  cityToSearch = searchInputEl.value;
+
+  getGeoCoordinates(cityToSearch, ApiKey);
+  coordinates = JSON.parse(localStorage.getItem("coordinates"));
+
+  var reqUrl =
+    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+    coordinates.lat +
+    "&lon=" +
+    coordinates.long +
+    "&appid=" +
+    ApiKey;
+
+  fetch(reqUrl, {
+    method: "GET",
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+});
