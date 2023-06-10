@@ -1,6 +1,6 @@
-// ------ Functions ------ //
+// ---------- Functions ----------- //
 
-function getGeoCoordinates(cityName, appId) {
+async function getGeoCoordinates(cityName, appId) {
   var limit = 1;
   var coordReqUrl =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
@@ -10,22 +10,21 @@ function getGeoCoordinates(cityName, appId) {
     "&appid=" +
     appId;
 
-  fetch(coordReqUrl, {
+  var response = await fetch(coordReqUrl, {
     method: "GET",
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      var geoLocation = {
-        lat: data[0].lat,
-        long: data[0].lon,
-      };
-      localStorage.setItem("coordinates", JSON.stringify(geoLocation));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  });
+
+  if (!response.ok) {
+    throw new Error("Error: ", response.stats);
+  }
+
+  var data = await response.json();
+  var geoLocation = {
+    lat: data[0].lat,
+    long: data[0].lon,
+  };
+  localStorage.setItem("coordinates", JSON.stringify(geoLocation));
+  return true;
 }
 
 function determineDailyMain(array) {
@@ -66,85 +65,95 @@ function determineDailyMain(array) {
   return;
 }
 
+function average(array) {
+  var sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    sum += array[i];
+  }
+  return sum / array.length;
+}
+
 function processWeatherData(weatherData) {
   var forecast = [
     {
-      temp: 0,
-      temp_min: 0,
-      temp_max: 0,
-      humidity: 0,
+      date: "",
+      temp: [],
+      feels_like: [],
+      humidity: [],
       main: [],
-      pop: 0,
+      pop: [],
     },
     {
-      temp: 0,
-      temp_min: 0,
-      temp_max: 0,
-      humidity: 0,
+      date: "",
+      temp: [],
+      feels_like: [],
+      humidity: [],
       main: [],
-      pop: 0,
+      pop: [],
     },
     {
-      temp: 0,
-      temp_min: 0,
-      temp_max: 0,
-      humidity: 0,
+      date: "",
+      temp: [],
+      feels_like: [],
+      humidity: [],
       main: [],
-      pop: 0,
+      pop: [],
     },
     {
-      temp: 0,
-      temp_min: 0,
-      temp_max: 0,
-      humidity: 0,
+      date: "",
+      temp: [],
+      feels_like: [],
+      humidity: [],
       main: [],
-      pop: 0,
+      pop: [],
     },
     {
-      temp: 0,
-      temp_min: 0,
-      temp_max: 0,
-      humidity: 0,
+      date: "",
+      temp: [],
+      feels_like: [],
+      humidity: [],
       main: [],
-      pop: 0,
+      pop: [],
     },
   ];
-  var variablesToStore = ["temp", "temp_min", "temp_max", "humidity"];
+  var variablesToStore = ["temp", "feels_like", "humidity"];
+
+  var index = 0;
+  var currDate = weatherData.list[index].dt_txt.split(" ");
 
   for (let day = 0; day < 5; day++) {
-    for (let i = 0; i < 8; i++) {
-      var index = i + day * 8;
+    forecast[day].date = currDate[0];
+    var prevDate = currDate;
+    while (currDate[0] === prevDate[0]) {
       for (let variable of variablesToStore) {
-        forecast[day][variable] += weatherData.list[index].main[variable];
+        forecast[day][variable].push(weatherData.list[index].main[variable]);
       }
-      forecast[day].pop += weatherData.list[index].pop;
+      forecast[day].pop.push(weatherData.list[index].pop);
       forecast[day].main.push(weatherData.list[index].weather[0].main);
+      index++;
+      currDate = weatherData.list[index].dt_txt.split(" ");
     }
     // Average and convert to deg C
-    forecast[day].temp = forecast[day].temp / 8 - 273.15;
-    forecast[day].temp_min = forecast[day].temp_min / 8 - 273.15;
-    forecast[day].temp_max = forecast[day].temp_max / 8 - 273.15;
-    forecast[day].humidity = forecast[day].humidity / 8; // percentage
+    forecast[day].temp = average(forecast[day].temp) - 273.15;
+    forecast[day].feels_like = average(forecast[day].feels_like) - 273.15;
+    forecast[day].humidity = average(forecast[day].humidity); // percentage
     forecast[day].main = determineDailyMain(forecast[day].main);
-    forecast[day].pop = (forecast[day].pop / 8) * 100; // percentage
+    forecast[day].pop = average(forecast[day].pop) * 100; // percentage
   }
-
-  console.log(forecast);
 }
 
-// ----------------------- //
+// ----------------------------------------- //
 
 var ApiKey = "090e889d7a08a33b213911545eb4136f";
 var searchInputEl = document.getElementById("city-name");
 var searchBttnEl = document.getElementById("search-bttn");
 
-searchBttnEl.addEventListener("click", function (event) {
+searchBttnEl.addEventListener("click", async function (event) {
   event.preventDefault();
   cityToSearch = searchInputEl.value;
 
-  getGeoCoordinates(cityToSearch, ApiKey);
+  await getGeoCoordinates(cityToSearch, ApiKey);
   coordinates = JSON.parse(localStorage.getItem("coordinates"));
-  console.log(coordinates);
 
   var reqUrl =
     "https://api.openweathermap.org/data/2.5/forecast?lat=" +
@@ -162,11 +171,9 @@ searchBttnEl.addEventListener("click", function (event) {
     })
     .then(function (data) {
       processWeatherData(data);
-      console.log(data.list);
+      console.log("Data received");
     })
     .catch(function (error) {
       console.log(error);
     });
 });
-
-// NOTE: this is working for cases when the first input is 03:00:00 of day 1. This does not account for requesting the weather in the middle of the day and getting the first input for later than 03:00:00.
