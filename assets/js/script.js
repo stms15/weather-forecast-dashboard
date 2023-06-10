@@ -200,13 +200,33 @@ function displayWeather(processedData) {
     windEl.innerHTML =
       "Wind Speed: " + Math.round(processedData[counter].wind) + "m/s";
 
+    var parentEl = document.getElementById(parentId);
+    if (!processedData[counter].temp) {
+      console.log(parentEl);
+      parentEl.classList.remove("d-flex");
+      parentEl.setAttribute("style", "display: none");
+    } else {
+      parentEl.classList.add("d-flex");
+    }
+
     counter++;
   }
+}
+
+function addSearchHistory() {
+  var newBttnEl = document.createElement("button");
+  var newLiEl = document.createElement("li");
+
+  newBttnEl.innerHTML = localStorage.getItem("city-name");
+  newLiEl.appendChild(newBttnEl);
+  searchHistoryUlEl.appendChild(newLiEl);
 }
 
 // ----------------------------------------- //
 
 // ------------- Main ------------- //
+
+var searchHistoryUlEl = document.getElementById("search-history");
 
 var ApiKey = "090e889d7a08a33b213911545eb4136f";
 var searchInputEl = document.getElementById("search-input");
@@ -252,6 +272,7 @@ searchBttnEl.addEventListener("click", async function (event) {
 
   await getGeoCoordinates(cityToSearch, ApiKey);
   coordinates = JSON.parse(localStorage.getItem("coordinates"));
+  addSearchHistory();
 
   var reqUrl =
     "https://api.openweathermap.org/data/2.5/forecast?lat=" +

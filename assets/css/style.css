@@ -18,22 +18,45 @@ h1 {
 
 /* ------------------------ */
 
-/* main {
-  background-color: #0d3740;
-  color: whitesmoke;
-} */
+aside {
+  margin-top: 45px;
+}
 
-/* .card {
-  background-color: whitesmoke;
-} */
+#search-history {
+  list-style: none;
+  margin-top: 20px;
+  padding-left: 0;
+}
+
+#search-history li {
+  margin-bottom: 10px;
+}
+
+#search-history button {
+  background: linear-gradient(
+    rgba(99, 182, 201, 0.8) 0%,
+    rgb(42, 129, 148, 0.9) 100%
+  );
+  color: black;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  box-shadow: 4px 4px 5px gray;
+  min-width: 150px;
+}
+
+#search-history button:hover {
+  font-size: 104%;
+  box-shadow: 6px 6px 5px gray;
+}
 
 h2 {
   font-size: 225%;
   font-weight: 700;
   text-align: center;
-  background-color: #0d3740;
-  color: whitesmoke;
-  padding: 5px;
+  background-color: rgba(13, 55, 64, 0.2);
+  color: #0d3740;
+  padding: 15px;
   border-radius: 5px;
 }
 
