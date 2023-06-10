@@ -24,6 +24,7 @@ async function getGeoCoordinates(cityName, appId) {
     long: data[0].lon,
   };
   localStorage.setItem("coordinates", JSON.stringify(geoLocation));
+  localStorage.setItem("city-name", cityName);
   return true;
 }
 
@@ -140,12 +141,41 @@ function processWeatherData(weatherData) {
     forecast[day].main = determineDailyMain(forecast[day].main);
     forecast[day].pop = average(forecast[day].pop) * 100; // percentage
   }
+  return forecast;
+}
+
+function displayWeather(processedData) {
+  var dayIds = ["day-1", "day-2", "day-3", "day-4", "day-5"];
+  var counter = 0;
+  var locationEl = document.getElementById("city-name");
+
+  locationEl.innerHTML = localStorage.getItem("city-name");
+
+  for (let parentId of dayIds) {
+    var dateEl = document.getElementById(parentId + "-date");
+    var tempEl = document.getElementById(parentId + "-temp");
+    var feelsLikeEl = document.getElementById(parentId + "-feels-like");
+    var humidityEl = document.getElementById(parentId + "-humidity");
+    var popEl = document.getElementById(parentId + "-pop");
+
+    dateEl.innerHTML = dayjs(processedData[counter].date).format("MMMM D");
+    tempEl.innerHTML = Math.round(processedData[counter].temp) + "&deg;C";
+    feelsLikeEl.innerHTML =
+      Math.round(processedData[counter].feels_like) + "&deg;C";
+    humidityEl.innerHTML =
+      "Humidity: " + Math.round(processedData[counter].humidity) + "%";
+    popEl.innerHTML = "POP: " + Math.round(processedData[counter].pop) + "%";
+
+    counter++;
+  }
 }
 
 // ----------------------------------------- //
 
+// ------------- Main ------------- //
+
 var ApiKey = "090e889d7a08a33b213911545eb4136f";
-var searchInputEl = document.getElementById("city-name");
+var searchInputEl = document.getElementById("search-input");
 var searchBttnEl = document.getElementById("search-bttn");
 
 searchBttnEl.addEventListener("click", async function (event) {
@@ -170,8 +200,10 @@ searchBttnEl.addEventListener("click", async function (event) {
       return response.json();
     })
     .then(function (data) {
-      processWeatherData(data);
+      console.log(data);
+      var parsedData = processWeatherData(data);
       console.log("Data received");
+      displayWeather(parsedData);
     })
     .catch(function (error) {
       console.log(error);

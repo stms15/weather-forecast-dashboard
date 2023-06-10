@@ -1,28 +1,51 @@
 * {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 14pt;
 }
+
+/* ---- Header classes ---- */
 
 header {
-  display: flex;
-  justify-content: center;
+  background-color: #0d3740;
 }
 
-main {
-  display: flex;
+h1 {
+  color: whitesmoke;
+  font-size: 350%;
+  font-weight: 700;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 200px;
-  background-color: antiquewhite;
+/* ------------------------ */
+
+/* main {
+  background-color: #0d3740;
+  color: whitesmoke;
+} */
+
+/* .card {
+  background-color: whitesmoke;
+} */
+
+h2 {
+  font-size: 300%;
+  font-weight: 700;
+  /* text-align: center; */
 }
 
-.single-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
+h4 {
+  font-size: 200%;
+  font-weight: 700;
+  text-align: center;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.temperature {
+  font-size: 150%;
+  font-weight: 600;
 }
