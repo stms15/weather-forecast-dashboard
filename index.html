@@ -32,17 +32,14 @@
           <input type="search" id="search-input" placeholder="Ottawa" />
           <button id="search-bttn">Search</button>
         </form>
-        <div>
-          <p>St. John's</p>
-          <p>Halifax</p>
-          <p>Fredericton</p>
-          <p>Toronto</p>
-        </div>
+        <ul id="search-history">
+          <li><button>St. John's, Newfoundland</button></li>
+        </ul>
       </aside>
 
       <main class="p-3" style="width: 80%">
         <h2 id="city-name"></h2>
-        <div class="d-flex flex-column p-3 pb-5 mb-3" id="current">
+        <div class="flex-column p-3 pb-5 mb-3" id="current">
           <h4 id="current-date" style="max-width: 500px">Today</h4>
           <div class="d-flex justify-content-evenly align-items-center">
             <img
@@ -65,7 +62,7 @@
 
         <div class="w-100 d-flex flex-wrap justify-content-around mt-3 mb-3">
           <div
-            class="d-flex flex-column p-3 mt-3 shadow"
+            class="flex-column p-3 mt-3 shadow"
             id="day-1"
             style="min-width: 15vw"
           >
@@ -86,7 +83,7 @@
             <p id="day-1-wind">Wind Speed:</p>
           </div>
           <div
-            class="d-flex flex-column p-3 mt-3 shadow"
+            class="flex-column p-3 mt-3 shadow"
             id="day-2"
             style="min-width: 15vw"
           >
@@ -107,7 +104,7 @@
             <p id="day-2-wind">Wind Speed:</p>
           </div>
           <div
-            class="d-flex flex-column p-3 mt-3 shadow"
+            class="flex-column p-3 mt-3 shadow"
             id="day-3"
             style="min-width: 15vw"
           >
@@ -128,7 +125,7 @@
             <p id="day-3-wind">Wind Speed:</p>
           </div>
           <div
-            class="d-flex flex-column p-3 mt-3 shadow"
+            class="flex-column p-3 mt-3 shadow"
             id="day-4"
             style="min-width: 15vw"
           >
@@ -149,7 +146,7 @@
             <p id="day-4-wind">Wind Speed:</p>
           </div>
           <div
-            class="d-flex flex-column p-3 mt-3 shadow"
+            class="flex-column p-3 mt-3 shadow"
             id="day-5"
             style="min-width: 15vw"
           >
