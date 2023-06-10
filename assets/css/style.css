@@ -12,7 +12,7 @@ header {
 
 h1 {
   color: whitesmoke;
-  font-size: 350%;
+  font-size: 300%;
   font-weight: 700;
 }
 
@@ -28,13 +28,16 @@ h1 {
 } */
 
 h2 {
-  font-size: 300%;
+  font-size: 225%;
   font-weight: 700;
-  /* text-align: center; */
+  text-align: center;
+  background-color: #0d3740;
+  color: whitesmoke;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 h4 {
-  font-size: 200%;
   font-weight: 700;
   text-align: center;
 }
@@ -46,6 +49,6 @@ h4 {
 }
 
 .temperature {
-  font-size: 150%;
+  font-size: 200%;
   font-weight: 600;
 }

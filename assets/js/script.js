@@ -157,14 +157,20 @@ function displayWeather(processedData) {
     var feelsLikeEl = document.getElementById(parentId + "-feels-like");
     var humidityEl = document.getElementById(parentId + "-humidity");
     var popEl = document.getElementById(parentId + "-pop");
+    var iconEl = document.getElementById(parentId + "-icon");
+
+    feelsLikeEl.setAttribute("style", "font-size: 11pt");
 
     dateEl.innerHTML = dayjs(processedData[counter].date).format("MMMM D");
     tempEl.innerHTML = Math.round(processedData[counter].temp) + "&deg;C";
     feelsLikeEl.innerHTML =
-      Math.round(processedData[counter].feels_like) + "&deg;C";
+      "Feels like<br/>" +
+      Math.round(processedData[counter].feels_like) +
+      "&deg;C";
     humidityEl.innerHTML =
       "Humidity: " + Math.round(processedData[counter].humidity) + "%";
     popEl.innerHTML = "POP: " + Math.round(processedData[counter].pop) + "%";
+    iconEl.setAttribute("src", weatherIcons[processedData[counter].main]);
 
     counter++;
   }
@@ -177,6 +183,13 @@ function displayWeather(processedData) {
 var ApiKey = "090e889d7a08a33b213911545eb4136f";
 var searchInputEl = document.getElementById("search-input");
 var searchBttnEl = document.getElementById("search-bttn");
+var weatherIcons = {
+  Rain: "https://openweathermap.org/img/wn/10d@2x.png",
+  Clouds: "https://openweathermap.org/img/wn/04d@2x.png",
+  Snow: "https://openweathermap.org/img/wn/13d@2x.png",
+  Extreme: "https://openweathermap.org/img/wn/11d@2x.png",
+  Clear: "https://openweathermap.org/img/wn/01d@2x.png",
+};
 
 searchBttnEl.addEventListener("click", async function (event) {
   event.preventDefault();
