@@ -83,6 +83,7 @@ function processWeatherData(weatherData) {
       humidity: [],
       main: [],
       pop: [],
+      wind: [],
     },
     {
       date: "",
@@ -91,6 +92,7 @@ function processWeatherData(weatherData) {
       humidity: [],
       main: [],
       pop: [],
+      wind: [],
     },
     {
       date: "",
@@ -99,6 +101,7 @@ function processWeatherData(weatherData) {
       humidity: [],
       main: [],
       pop: [],
+      wind: [],
     },
     {
       date: "",
@@ -107,6 +110,7 @@ function processWeatherData(weatherData) {
       humidity: [],
       main: [],
       pop: [],
+      wind: [],
     },
     {
       date: "",
@@ -115,6 +119,16 @@ function processWeatherData(weatherData) {
       humidity: [],
       main: [],
       pop: [],
+      wind: [],
+    },
+    {
+      date: "",
+      temp: [],
+      feels_like: [],
+      humidity: [],
+      main: [],
+      pop: [],
+      wind: [],
     },
   ];
   var variablesToStore = ["temp", "feels_like", "humidity"];
@@ -122,16 +136,20 @@ function processWeatherData(weatherData) {
   var index = 0;
   var currDate = weatherData.list[index].dt_txt.split(" ");
 
-  for (let day = 0; day < 5; day++) {
+  for (let day = 0; day < 6; day++) {
     forecast[day].date = currDate[0];
     var prevDate = currDate;
-    while (currDate[0] === prevDate[0]) {
+    while (currDate[0] === prevDate[0] && index < 40) {
       for (let variable of variablesToStore) {
         forecast[day][variable].push(weatherData.list[index].main[variable]);
       }
       forecast[day].pop.push(weatherData.list[index].pop);
       forecast[day].main.push(weatherData.list[index].weather[0].main);
+      forecast[day].wind.push(weatherData.list[index].wind.speed);
       index++;
+      if (index === 40) {
+        break;
+      }
       currDate = weatherData.list[index].dt_txt.split(" ");
     }
     // Average and convert to deg C
@@ -140,12 +158,14 @@ function processWeatherData(weatherData) {
     forecast[day].humidity = average(forecast[day].humidity); // percentage
     forecast[day].main = determineDailyMain(forecast[day].main);
     forecast[day].pop = average(forecast[day].pop) * 100; // percentage
+    forecast[day].wind = average(forecast[day].wind); // m/s
   }
+  console.log(forecast);
   return forecast;
 }
 
 function displayWeather(processedData) {
-  var dayIds = ["day-1", "day-2", "day-3", "day-4", "day-5"];
+  var dayIds = ["current", "day-1", "day-2", "day-3", "day-4", "day-5"];
   var counter = 0;
   var locationEl = document.getElementById("city-name");
 
@@ -158,10 +178,16 @@ function displayWeather(processedData) {
     var humidityEl = document.getElementById(parentId + "-humidity");
     var popEl = document.getElementById(parentId + "-pop");
     var iconEl = document.getElementById(parentId + "-icon");
+    var windEl = document.getElementById(parentId + "-wind");
 
     feelsLikeEl.setAttribute("style", "font-size: 11pt");
 
-    dateEl.innerHTML = dayjs(processedData[counter].date).format("MMMM D");
+    if (counter === 0) {
+      dateEl.innerHTML = "Today";
+    } else {
+      dateEl.innerHTML = dayjs(processedData[counter].date).format("MMMM D");
+    }
+
     tempEl.innerHTML = Math.round(processedData[counter].temp) + "&deg;C";
     feelsLikeEl.innerHTML =
       "Feels like<br/>" +
@@ -171,6 +197,8 @@ function displayWeather(processedData) {
       "Humidity: " + Math.round(processedData[counter].humidity) + "%";
     popEl.innerHTML = "POP: " + Math.round(processedData[counter].pop) + "%";
     iconEl.setAttribute("src", weatherIcons[processedData[counter].main]);
+    windEl.innerHTML =
+      "Wind Speed: " + Math.round(processedData[counter].wind) + "m/s";
 
     counter++;
   }
@@ -190,6 +218,33 @@ var weatherIcons = {
   Extreme: "https://openweathermap.org/img/wn/11d@2x.png",
   Clear: "https://openweathermap.org/img/wn/01d@2x.png",
 };
+
+var initialCity = "St. John's, Newfoundland";
+getGeoCoordinates(initialCity, ApiKey);
+initialCityCoordinates = JSON.parse(localStorage.getItem("coordinates"));
+
+var initialReqUrl =
+  "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+  initialCityCoordinates.lat +
+  "&lon=" +
+  initialCityCoordinates.long +
+  "&appid=" +
+  ApiKey;
+
+fetch(initialReqUrl, {
+  method: "GET",
+})
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+    var parsedData = processWeatherData(data);
+    displayWeather(parsedData);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 
 searchBttnEl.addEventListener("click", async function (event) {
   event.preventDefault();
@@ -213,7 +268,6 @@ searchBttnEl.addEventListener("click", async function (event) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
       var parsedData = processWeatherData(data);
       console.log("Data received");
       displayWeather(parsedData);

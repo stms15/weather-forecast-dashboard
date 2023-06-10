@@ -27,7 +27,7 @@
     </header>
 
     <div class="d-flex m-3 mt-4">
-      <aside class="w-25 p-3 search-bar">
+      <aside class="p-3 search-bar" style="width: 20%">
         <form>
           <input type="search" id="search-input" placeholder="Ottawa" />
           <button id="search-bttn">Search</button>
@@ -40,29 +40,51 @@
         </div>
       </aside>
 
-      <main class="w-75 p-3">
+      <main class="p-3" style="width: 80%">
         <h2 id="city-name"></h2>
-        <div class="d-flex flex-column p-3 pb-5 mb-3" id="day-1">
-          <h4 id="day-1-date" style="max-width: 500px">Today</h4>
+        <div class="d-flex flex-column p-3 pb-5 mb-3" id="current">
+          <h4 id="current-date" style="max-width: 500px">Today</h4>
           <div class="d-flex justify-content-evenly align-items-center">
             <img
               src="./assets/images/placeholder.png"
               alt=""
               width="20%"
-              id="day-1-icon"
+              id="current-icon"
             />
             <div>
-              <p class="temperature" id="day-1-temp">1</p>
-              <p id="day-1-feels-like">2</p>
+              <p class="temperature" id="current-temp">1</p>
+              <p id="current-feels-like">2</p>
             </div>
             <div>
-              <p id="day-1-humidity">Humidity:</p>
-              <p id="day-1-pop">POP:</p>
+              <p id="current-humidity">Humidity:</p>
+              <p id="current-pop">POP:</p>
+              <p id="current-wind">Wind Speed:</p>
             </div>
           </div>
         </div>
 
         <div class="w-100 d-flex flex-wrap justify-content-around mt-3 mb-3">
+          <div
+            class="d-flex flex-column p-3 mt-3 shadow"
+            id="day-1"
+            style="min-width: 15vw"
+          >
+            <h4 id="day-1-date">Tomorrow</h4>
+            <img
+              src="./assets/images/placeholder.png"
+              alt=""
+              width="90%"
+              class="center-block"
+              id="day-1-icon"
+            />
+            <div class="d-flex justify-content-evenly">
+              <p class="temperature" id="day-1-temp">1</p>
+              <p id="day-1-feels-like">2</p>
+            </div>
+            <p id="day-1-humidity">Humidity:</p>
+            <p id="day-1-pop">POP:</p>
+            <p id="day-1-wind">Wind Speed:</p>
+          </div>
           <div
             class="d-flex flex-column p-3 mt-3 shadow"
             id="day-2"
@@ -82,6 +104,7 @@
             </div>
             <p id="day-2-humidity">Humidity:</p>
             <p id="day-2-pop">POP:</p>
+            <p id="day-2-wind">Wind Speed:</p>
           </div>
           <div
             class="d-flex flex-column p-3 mt-3 shadow"
@@ -102,6 +125,7 @@
             </div>
             <p id="day-3-humidity">Humidity:</p>
             <p id="day-3-pop">POP:</p>
+            <p id="day-3-wind">Wind Speed:</p>
           </div>
           <div
             class="d-flex flex-column p-3 mt-3 shadow"
@@ -122,6 +146,7 @@
             </div>
             <p id="day-4-humidity">Humidity:</p>
             <p id="day-4-pop">POP:</p>
+            <p id="day-4-wind">Wind Speed:</p>
           </div>
           <div
             class="d-flex flex-column p-3 mt-3 shadow"
@@ -142,6 +167,7 @@
             </div>
             <p id="day-5-humidity">Humidity:</p>
             <p id="day-5-pop">POP:</p>
+            <p id="day-5-wind">Wind Speed:</p>
           </div>
         </div>
       </main>
