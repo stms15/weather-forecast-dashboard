@@ -22,14 +22,14 @@
     ></script>
   </head>
   <body>
-    <header class="d-flex justify-content-center m-5">
-      <h1>Weather Forecast Dashboard</h1>
+    <header class="d-flex justify-content-center p-5">
+      <h1>5-Day Weather Forecast</h1>
     </header>
 
-    <div class="d-flex m-2">
+    <div class="d-flex m-3 mt-4">
       <aside class="w-25 p-3 search-bar">
         <form>
-          <input type="search" id="city-name" placeholder="Ottawa" />
+          <input type="search" id="search-input" placeholder="Ottawa" />
           <button id="search-bttn">Search</button>
         </form>
         <div>
@@ -41,77 +41,78 @@
       </aside>
 
       <main class="w-75">
-        <div class="w-100 d-flex flex-column" id="day-1">
-          <h4>Today</h4>
+        <h2 id="city-name"></h2>
+        <div class="w-100 d-flex flex-column p-3 pb-5 mb-3" id="day-1">
+          <h4 id="day-1-date">Today</h4>
           <div class="d-flex justify-content-evenly align-items-center">
             <img src="./assets/images/placeholder.png" alt="" width="25%" />
-            <p id="temp">1</p>
-            <p id="feels-like">2</p>
-            <p id="humidity">Humidity:</p>
-            <p id="pop">POP:</p>
+            <p class="temperature" id="day-1-temp">1</p>
+            <p id="day-1-feels-like">2</p>
+            <p id="day-1-humidity">Humidity:</p>
+            <p id="day-1-pop">POP:</p>
           </div>
         </div>
 
-        <div class="w-100 d-flex justify-content-between mt-4">
-          <div class="d-flex flex-column" id="day-2">
-            <h4>Tomorrow</h4>
+        <div class="w-100 d-flex flex-wrap justify-content-around mt-3 mb-3">
+          <div class="d-flex flex-column p-3 mt-3 shadow" id="day-2">
+            <h4 id="day-2-date">Tomorrow</h4>
             <img
               src="./assets/images/placeholder.png"
               alt=""
               width="75%"
-              class="center-block"
+              class="center-block p-1"
             />
             <div class="d-flex justify-content-evenly">
-              <p id="temp">1</p>
-              <p id="feels-like">2</p>
+              <p class="temperature" id="day-2-temp">1</p>
+              <p id="day-2-feels-like">2</p>
             </div>
-            <p id="humidity">Humidity:</p>
-            <p id="pop">POP:</p>
+            <p id="day-2-humidity">Humidity:</p>
+            <p id="day-2-pop">POP:</p>
           </div>
-          <div class="d-flex flex-column" id="day-3">
-            <h4>+2 days</h4>
+          <div class="d-flex flex-column p-3 mt-3 shadow" id="day-3">
+            <h4 id="day-3-date">+2 days</h4>
             <img
               src="./assets/images/placeholder.png"
               alt=""
               width="75%"
-              class="center-block"
+              class="center-block p-1"
             />
             <div class="d-flex justify-content-evenly">
-              <p id="temp">1</p>
-              <p id="feels-like">2</p>
+              <p class="temperature" id="day-3-temp">1</p>
+              <p id="day-3-feels-like">2</p>
             </div>
-            <p id="humidity">Humidity:</p>
-            <p id="pop">POP:</p>
+            <p id="day-3-humidity">Humidity:</p>
+            <p id="day-3-pop">POP:</p>
           </div>
-          <div class="d-flex flex-column" id="day-4">
-            <h4>+3 days</h4>
+          <div class="d-flex flex-column p-3 mt-3 shadow" id="day-4">
+            <h4 id="day-4-date">+3 days</h4>
             <img
               src="./assets/images/placeholder.png"
               alt=""
               width="75%"
-              class="center-block"
+              class="center-block p-1"
             />
             <div class="d-flex justify-content-evenly">
-              <p id="temp">1</p>
-              <p id="feels-like">2</p>
+              <p class="temperature" id="day-4-temp">1</p>
+              <p id="day-4-feels-like">2</p>
             </div>
-            <p id="humidity">Humidity:</p>
-            <p id="pop">POP:</p>
+            <p id="day-4-humidity">Humidity:</p>
+            <p id="day-4-pop">POP:</p>
           </div>
-          <div class="d-flex flex-column" id="day-5">
-            <h4>+4 days</h4>
+          <div class="d-flex flex-column p-3 mt-3 shadow" id="day-5">
+            <h4 id="day-5-date">+4 days</h4>
             <img
               src="./assets/images/placeholder.png"
               alt=""
               width="75%"
-              class="center-block"
+              class="center-block p-1"
             />
             <div class="d-flex justify-content-evenly">
-              <p id="temp">1</p>
-              <p id="feels-like">2</p>
+              <p class="temperature" id="day-5-temp">1</p>
+              <p id="day-5-feels-like">2</p>
             </div>
-            <p id="humidity">Humidity:</p>
-            <p id="pop">POP:</p>
+            <p id="day-5-humidity">Humidity:</p>
+            <p id="day-5-pop">POP:</p>
           </div>
         </div>
       </main>
