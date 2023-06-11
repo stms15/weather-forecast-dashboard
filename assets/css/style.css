@@ -76,10 +76,15 @@ h4 {
   text-align: center;
 }
 
+#current-icon {
+  min-width: 300px;
+}
+
 .center-block {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  min-width: 200px;
 }
 
 .temperature {
@@ -117,5 +122,13 @@ h4 {
   }
   #search-history li {
     margin-right: 10px;
+  }
+
+  #current-icon {
+    min-width: 150px;
+  }
+
+  .center-block {
+    min-width: 100px;
   }
 }
