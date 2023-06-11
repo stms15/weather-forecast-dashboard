@@ -183,11 +183,7 @@ function displayWeather(processedData, city) {
 
     feelsLikeEl.setAttribute("style", "font-size: 11pt");
 
-    if (counter === 0) {
-      dateEl.innerHTML = "Today";
-    } else {
-      dateEl.innerHTML = dayjs(processedData[counter].date).format("MMMM D");
-    }
+    dateEl.innerHTML = dayjs(processedData[counter].date).format("MMMM D");
 
     tempEl.innerHTML = Math.round(processedData[counter].temp) + "&deg;C";
     feelsLikeEl.innerHTML =
@@ -240,32 +236,33 @@ var weatherIcons = {
   Clear: "https://openweathermap.org/img/wn/01d@2x.png",
 };
 
-var initialCity = "St. John's, Newfoundland";
-getGeoCoordinates(initialCity, ApiKey);
-initialCityCoordinates = JSON.parse(localStorage.getItem("coordinates"));
+async function initialDisplay() {
+  var initialCity = "St. John's, Newfoundland";
+  await getGeoCoordinates(initialCity, ApiKey);
+  initialCityCoordinates = JSON.parse(localStorage.getItem("coordinates"));
 
-var initialReqUrl =
-  "https://api.openweathermap.org/data/2.5/forecast?lat=" +
-  initialCityCoordinates.lat +
-  "&lon=" +
-  initialCityCoordinates.long +
-  "&appid=" +
-  ApiKey;
+  var initialReqUrl =
+    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+    initialCityCoordinates.lat +
+    "&lon=" +
+    initialCityCoordinates.long +
+    "&appid=" +
+    ApiKey;
 
-fetch(initialReqUrl, {
-  method: "GET",
-})
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-    var parsedData = processWeatherData(data, initialCity);
-    displayWeather(parsedData, initialCity);
-  })
-  .catch(function (error) {
-    console.log(error);
+  var response = await fetch(initialReqUrl, {
+    method: "GET",
   });
+
+  if (!response.ok) {
+    throw new Error("Error: ", response.status);
+  }
+
+  var data = await response.json();
+  var parsedData = processWeatherData(data, initialCity);
+  displayWeather(parsedData, initialCity);
+}
+
+initialDisplay();
 
 searchBttnEl.addEventListener("click", async function (event) {
   event.preventDefault();
