@@ -26,8 +26,8 @@
       <h1>5-Day Weather Forecast</h1>
     </header>
 
-    <div class="d-flex m-3 mt-4 flex-md-column flex-sm-column flex-lg-row">
-      <aside class="p-3" style="width: 20%">
+    <div class="d-flex m-3 m-sm-1 mt-4 flex-column flex-lg-row flex-xl-row">
+      <aside class="p-3 p-sm-1" style="width: 20%">
         <form>
           <input type="search" id="search-input" placeholder="Ottawa" />
           <button id="search-bttn">Search</button>
@@ -37,22 +37,21 @@
         </ul>
       </aside>
 
-      <main class="p-3" style="width: 80%">
+      <main class="p-3 p-sm-1" style="width: 80%">
         <h2 id="city-name">Initial City</h2>
-        <div class="flex-column p-3 pb-5 mb-3" id="current">
+        <div class="flex-column p-3 pb-5 mb-3 p-sm-1" id="current">
           <h4 id="current-date" style="max-width: 500px">Today</h4>
           <div class="d-flex justify-content-evenly align-items-center">
             <img
               src="./assets/images/placeholder.png"
               alt=""
-              width="275vw"
               id="current-icon"
             />
-            <div>
+            <div class="pe-2">
               <p class="temperature" id="current-temp">1</p>
               <p id="current-feels-like">2</p>
             </div>
-            <div>
+            <div class="ps-2">
               <p id="current-humidity">Humidity:</p>
               <p id="current-pop">POP:</p>
               <p id="current-wind">Wind Speed:</p>
@@ -70,7 +69,6 @@
             <img
               src="./assets/images/placeholder.png"
               alt=""
-              width="215w"
               class="center-block"
               id="day-1-icon"
             />
@@ -91,7 +89,6 @@
             <img
               src="./assets/images/placeholder.png"
               alt=""
-              width="215vw"
               class="center-block"
               id="day-2-icon"
             />
@@ -112,7 +109,6 @@
             <img
               src="./assets/images/placeholder.png"
               alt=""
-              width="215vw"
               class="center-block"
               id="day-3-icon"
             />
@@ -133,7 +129,6 @@
             <img
               src="./assets/images/placeholder.png"
               alt=""
-              width="215vw"
               class="center-block"
               id="day-4-icon"
             />
@@ -154,7 +149,6 @@
             <img
               src="./assets/images/placeholder.png"
               alt=""
-              width="215vw"
               class="center-block"
               id="day-5-icon"
             />
