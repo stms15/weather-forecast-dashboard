@@ -25,6 +25,10 @@ aside {
   margin-top: 45px;
 }
 
+#search-input {
+  width: 70%;
+}
+
 #search-history {
   list-style: none;
   margin-top: 20px;
@@ -51,6 +55,7 @@ aside {
 #search-history button:hover {
   font-size: 104%;
   box-shadow: 6px 6px 5px gray;
+  background-color: rgb(13, 55, 64);
 }
 
 h2 {
@@ -80,4 +85,37 @@ h4 {
 .temperature {
   font-size: 200%;
   font-weight: 600;
+}
+
+/* ----------------------------------------------- */
+
+@media screen and (max-width: 1580px) {
+  aside {
+    width: 30% !important;
+  }
+  main {
+    width: 70% !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  aside {
+    width: 100% !important;
+  }
+
+  main {
+    width: 100% !important;
+  }
+
+  #search-input {
+    width: 80%;
+  }
+
+  #search-history {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #search-history li {
+    margin-right: 10px;
+  }
 }
