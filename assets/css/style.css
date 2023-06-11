@@ -7,7 +7,10 @@
 /* ---- Header classes ---- */
 
 header {
-  background-color: #0d3740;
+  background: linear-gradient(
+    rgba(13, 55, 64, 1) 0%,
+    rgba(13, 55, 64, 0.8) 100%
+  );
 }
 
 h1 {
@@ -34,10 +37,10 @@ aside {
 
 #search-history button {
   background: linear-gradient(
-    rgba(99, 182, 201, 0.8) 0%,
-    rgb(42, 129, 148, 0.9) 100%
+    rgba(13, 55, 64, 1) 0%,
+    rgba(13, 55, 64, 0.8) 100%
   );
-  color: black;
+  color: whitesmoke;
   border-radius: 5px;
   border: none;
   padding: 10px;
@@ -54,8 +57,11 @@ h2 {
   font-size: 225%;
   font-weight: 700;
   text-align: center;
-  background-color: rgba(13, 55, 64, 0.2);
-  color: #0d3740;
+  background: linear-gradient(
+    rgba(13, 55, 64, 1) 0%,
+    rgba(13, 55, 64, 0.8) 100%
+  );
+  color: whitesmoke;
   padding: 15px;
   border-radius: 5px;
 }

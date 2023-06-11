@@ -74,7 +74,7 @@ function average(array) {
   return sum / array.length;
 }
 
-function processWeatherData(weatherData) {
+function processWeatherData(weatherData, city) {
   var forecast = [
     {
       date: "",
@@ -160,16 +160,17 @@ function processWeatherData(weatherData) {
     forecast[day].pop = average(forecast[day].pop) * 100; // percentage
     forecast[day].wind = average(forecast[day].wind); // m/s
   }
-  console.log(forecast);
+  localStorage.setItem(city, JSON.stringify(forecast));
+
   return forecast;
 }
 
-function displayWeather(processedData) {
+function displayWeather(processedData, city) {
   var dayIds = ["current", "day-1", "day-2", "day-3", "day-4", "day-5"];
   var counter = 0;
   var locationEl = document.getElementById("city-name");
 
-  locationEl.innerHTML = localStorage.getItem("city-name");
+  locationEl.innerHTML = city;
 
   for (let parentId of dayIds) {
     var dateEl = document.getElementById(parentId + "-date");
@@ -259,8 +260,8 @@ fetch(initialReqUrl, {
   })
   .then(function (data) {
     console.log(data);
-    var parsedData = processWeatherData(data);
-    displayWeather(parsedData);
+    var parsedData = processWeatherData(data, initialCity);
+    displayWeather(parsedData, initialCity);
   })
   .catch(function (error) {
     console.log(error);
@@ -289,11 +290,19 @@ searchBttnEl.addEventListener("click", async function (event) {
       return response.json();
     })
     .then(function (data) {
-      var parsedData = processWeatherData(data);
+      var parsedData = processWeatherData(data, cityToSearch);
       console.log("Data received");
-      displayWeather(parsedData);
+      displayWeather(parsedData, cityToSearch);
     })
     .catch(function (error) {
       console.log(error);
     });
+});
+
+searchHistoryUlEl.addEventListener("click", function (event) {
+  event.preventDefault();
+  cityClicked = event.target.textContent;
+
+  var data = JSON.parse(localStorage.getItem(cityClicked));
+  displayWeather(data, cityClicked);
 });
